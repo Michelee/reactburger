@@ -97,7 +97,6 @@ class BurgerBuilder extends Component{
         this.setState({
             loading: true
         })
-        // alert('Continue');
         const order = {
             ingredients: this.state.ingredients,
             price: this.state.totalPrice,
