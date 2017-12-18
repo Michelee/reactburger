@@ -21,9 +21,7 @@ import * as actionCreator from '../../store/actions/index';
 
 class BurgerBuilder extends Component{
     state = {
-        purchasing: false,
-        loading: false,
-        error:false
+        purchasing: false
     }
 
     updatePurchaseState(ingredients){
@@ -116,21 +114,22 @@ class BurgerBuilder extends Component{
     }
 
 
-    // componentDidMount(){
-    //     axios.get('https://react-burger-3b1f8.firebaseio.com/ingredients.json')
-    //         .then(response => {
-    //             console.log(response)
-    //             this.setState({
-    //                 ingredients: response.data
-    //             })
-    //         })
-    //         .catch(error => {
-    //             this.setState({error : true});
-    //         })
-    //     ;
+    componentDidMount(){
+        this.props.onInitIngredients();
+        // axios.get('https://react-burger-3b1f8.firebaseio.com/ingredients.json')
+        //     .then(response => {
+        //         console.log(response)
+        //         this.setState({
+        //             ingredients: response.data
+        //         })
+        //     })
+        //     .catch(error => {
+        //         this.setState({error : true});
+        //     })
+        // ;
 
 
-    // }
+    }
 
     render(){
         const disableInfo = {
@@ -138,7 +137,7 @@ class BurgerBuilder extends Component{
         };
 
         let orderSummary = null;
-        let burger = this.state.error ? <p>Ingredients cant be loaded</p> : <Spinner />;
+        let burger = this.props.error ? <p>Ingredients cant be loaded</p> : <Spinner />;
 
         for (let key in disableInfo){
             disableInfo[key] = disableInfo[key] <= 0
@@ -172,9 +171,9 @@ class BurgerBuilder extends Component{
 
         }
 
-        if (this.state.loading){
-            orderSummary = <Spinner />;
-        }
+        // if (this.state.loading){
+        //     orderSummary = <Spinner />;
+        // }
 
         return (
             <Aux>
@@ -190,7 +189,8 @@ class BurgerBuilder extends Component{
 const mapStateToProps = (state) => {
     return {
         ingredients: state.ingredients,
-        totalPrice: state.totalPrice
+        totalPrice: state.totalPrice,
+        error: state.error
     }
 }
 
@@ -204,6 +204,11 @@ const mapDispatchToProps = (dispatch) => {
         onIngredientRemoved: (ingredientName) => {
             return dispatch(
                 actionCreator.removeIngredient(ingredientName)
+            )
+        },
+        onInitIngredients: () => {
+            return dispatch(
+                actionCreator.initIngredients()
             )
         }
 
