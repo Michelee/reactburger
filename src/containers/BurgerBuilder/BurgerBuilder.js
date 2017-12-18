@@ -93,21 +93,28 @@ class BurgerBuilder extends Component{
         this.setState({purchasing: false})
     }
 
+    // Old method, now the ingredients are not being passed with queryParams, 
+    // but now on the Checkout container, it has access to the global store
+    // purchaseContinueHandler = () => {
+    //     const queryParams = [];
+    //     for (let i in this.props.ingredients){
+    //         queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.props.ingredients[i]))
+    //     }
+
+    //     queryParams.push('price=' + this.props.totalPrice);
+
+    //     const queryString = queryParams.join('&')
+
+    //     this.props.history.push({
+    //         pathname: '/checkout',
+    //         search: '?' + queryString
+    //     });
+    // }
+
     purchaseContinueHandler = () => {
-        const queryParams = [];
-        for (let i in this.props.ingredients){
-            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.props.ingredients[i]))
-        }
-
-        queryParams.push('price=' + this.props.totalPrice);
-
-        const queryString = queryParams.join('&')
-
-        this.props.history.push({
-            pathname: '/checkout',
-            search: '?' + queryString
-        });
+        this.props.history.push('/checkout');
     }
+
 
     // componentDidMount(){
     //     axios.get('https://react-burger-3b1f8.firebaseio.com/ingredients.json')

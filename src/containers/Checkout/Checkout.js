@@ -1,30 +1,34 @@
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
 
 class Checkout extends Component{
-    state = {
-        ingredients: null,
-        totalPrice: 0
-    }
+    //Now this state is access through redux state
+    // state = {
+    //     ingredients: null,
+    //     totalPrice: 0
+    // }
 
-    componentWillMount(){
-        const query = new URLSearchParams(this.props.location.search);
-        let price = 0;
-        const ingredients = { }
-            for (let param of query.entries()){
-                if(param[0] === 'price'){
-                    price = param[1];
-                }else{
-                    ingredients[param[0]] = +param[1]
-                }
+    // No need to use this method since the ingredients are now access trough the store,
+    // The burger builder container now does not send query params to this container
+    // componentWillMount(){
+    //     const query = new URLSearchParams(this.props.location.search);
+    //     let price = 0;
+    //     const ingredients = { }
+    //         for (let param of query.entries()){
+    //             if(param[0] === 'price'){
+    //                 price = param[1];
+    //             }else{
+    //                 ingredients[param[0]] = +param[1]
+    //             }
                 
-            }
-        this.setState({ingredients, totalPrice: price})
+    //         }
+    //     this.setState({ingredients, totalPrice: price})
        
-    }
+    // }
 
     checkoutCancelHandler = () => {
         this.props.history.goBack();
@@ -38,22 +42,35 @@ class Checkout extends Component{
         return (
             <div>
                 <CheckoutSummary 
-                    ingredients={this.state.ingredients}
+                    ingredients={this.props.ingredients}
                     checkoutCancel={this.checkoutCancelHandler}
                     checkoutContinue={this.checkoutContinueHandler}
                 />
+
+                <Route 
+                    path={this.props.match.path + '/contact-data'}
+                    component={ContactData}
+                />
+                {/* 
+                OLd way to pass the props not this is change because of redux
                 <Route path={this.props.match.path + '/contact-data'} 
                 render={(props) => (
                     <ContactData 
-                        ingredients={this.state.ingredients} 
-                        totalPrice={this.state.totalPrice}
+                        ingredients={this.props.ingredients} 
+                        totalPrice={this.props.totalPrice}
                         {...props}
                         />
                     )}
-                />
+                /> */}
             </div>
         );
     }
 }
 
-export default Checkout;
+const mapStateToProps = (state) => {
+    return {
+        ingredients: state.ingredients
+    }
+}
+
+export default connect(mapStateToProps)(Checkout);
