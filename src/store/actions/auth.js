@@ -1,4 +1,8 @@
+import axios from 'axios';
 import * as actionTypes from './actionTypes';
+
+
+
 
 export const authStart = () => {
     return {
@@ -22,6 +26,22 @@ export const authFail = (error) => {
 
 export const auth = (email, password) => {
     return dispatch => {
-        dispatch(authStart())
+        dispatch(authStart());
+        const authData = {
+            email: email,
+            password: password,
+            returnSecureToken: true
+        }
+        console.log(password)
+        axios.post(
+            'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDrCjHmYjPJiLi1kIV_-WPVaOQrCjyvzoY',
+            authData
+        )
+        .then(response => {
+            dispatch(authSuccess(response.data))
+        })
+        .catch(err=>{
+            dispatch(authFail())
+        })
     };
 }
