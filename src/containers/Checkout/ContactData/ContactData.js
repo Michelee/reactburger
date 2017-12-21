@@ -110,7 +110,7 @@ class ContactData extends Component{
             orderData: formData
         }
 
-        this.props.onBurgerBuilder(order);
+        this.props.onBurgerBuilder(order, this.props.token);
         // axios.post('/orders.json', order)
         //     .then(response => {
         //         console.log(response);
@@ -222,15 +222,16 @@ const mapStateToProps = (state) => {
     return {
         ingredients: state.burgerBuilder.ingredients,
         totalPrice: state.burgerBuilder.totalPrice,
-        loading: state.order.loading
+        loading: state.order.loading,
+        token: state.auth.token
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onBurgerBuilder : (orderData) => {
+        onBurgerBuilder : (orderData, token) => {
             return dispatch(
-                actionCreators.purchaseBurger(orderData)
+                actionCreators.purchaseBurger(orderData, token)
             )
         }
     }
