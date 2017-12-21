@@ -7,21 +7,16 @@ const navigationItems = (props) => {
     let mostrar = props.mostrar? classes.open : classes.close
     return(
     <ul className={[classes.NavigationItems,mostrar].join(' ')} >
-        <NavigationItem
-            link="/"
-        >
+        <NavigationItem link="/">
             Build
         </NavigationItem>
-        <NavigationItem
-            link="/orders"
-        >
+        <NavigationItem link="/orders">
             Orders
         </NavigationItem>
-        <NavigationItem
-            link="/auth"
-        >
-            Authenticate
-        </NavigationItem>
+        {!props.isAuthenticated  
+            ? <NavigationItem link="/auth"> Authenticate </NavigationItem> 
+            : <NavigationItem link="/logout"> Logout </NavigationItem> 
+        }
     </ul>
 )}
 
