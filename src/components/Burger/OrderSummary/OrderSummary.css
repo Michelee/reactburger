@@ -1,0 +1,30 @@
+h3 {
+    text-align: center;
+    font-size: 30px;
+    margin: 0;
+}
+
+.Summary {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+}
+
+.Summary li {
+    list-style: none;
+    color: white;
+    background-color: #2b3c54;
+    /* border: solid 1px red; */
+    padding: 10px;
+    margin: 5px;
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+}
+
+.Buttons {
+    display: flex;
+    justify-content: center;
+}

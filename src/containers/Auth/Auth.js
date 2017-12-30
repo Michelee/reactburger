@@ -149,7 +149,7 @@ class Auth extends Component {
                 <Button 
                     clicked={this.swithAuthModeHandler} 
                     btnType="Danger"
-                >{this.state.isSignUp ? 'SIGN IN' : 'SIGN UP'}
+                >{this.state.isSignUp ? 'Already have an account? Sing in' : 'Create Account'}
                 </Button>
             </div>
         );

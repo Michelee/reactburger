@@ -4,7 +4,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #703B09;
+    background-color: #2b3d54;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -19,10 +19,23 @@
 
 .Logo {
     height: 80%;
+    display: flex;
+    align-items: center;
+}
+
+.BrandName{
+    padding: 0 10px;
+    font-size: 25px;
+    color: #ffec97;
+    font-weight: bold;
 }
 
 @media (max-width: 499px) {
     .DesktopOnly {
+        display: none;
+    }
+
+    .BrandName {
         display: none;
     }
 }
